@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/dszidi/floral-pi#readme",
   "dependencies": {
-    "pigpio": "2.0.1"
+    "pigpio": "2.0.1",
+    "node-osc": "4.1.3"
   }
 }
