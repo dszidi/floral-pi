@@ -18,5 +18,6 @@
   },
   "homepage": "https://github.com/dszidi/floral-pi#readme",
   "dependencies": {
+    "pigpio": "2.0.1"
   }
 }
