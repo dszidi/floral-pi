@@ -13,14 +13,35 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-const { Client } = require('node-osc');
- 
-const OSC = new Client('127.0.0.1', 3333);
+// OSC (OPEN SOUND CONTROL)
+var osc = require("osc");
+var udpPort = new osc.UDPPort({
+    // This is the port we're listening on.
+    localAddress: "127.0.0.1",
+    localPort: 57121,
 
-function sendOSC(pin, value){
-  OSC.send('/oscAddress', 200, () => {
-    OSC.close();
-  });
+    // This is where sclang is listening for OSC messages.
+    remoteAddress: "127.0.0.1",
+    remotePort: 57120,
+    metadata: true
+});
+
+// Open the socket.
+udpPort.open();
+
+function sendOSC(sensor, value){
+    var msg = {
+        address: "/hello/from/oscjs",
+        args: [
+            {
+                type: sensor,
+                value: value
+            }
+        ]
+    };
+
+    console.log("Sending message", msg.address, msg.args, "to", udpPort.options.remoteAddress + ":" + udpPort.options.remotePort);
+    udpPort.send(msg);
 }
 
 // pigpio example
