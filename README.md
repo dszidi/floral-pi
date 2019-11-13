@@ -21,3 +21,12 @@ $ npm init -y
 
 To be able to compile and install native add-ons from the npm registry you need to install the development tools:
 $ sudo apt install build-essential
+
+If this is freshly cloned from github then run...
+$ npm install
+
+To run the application...
+$ node app.js
+
+
+
