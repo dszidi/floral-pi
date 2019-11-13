@@ -14,7 +14,7 @@ server.listen(port, hostname, () => {
 });
 
 // GPIO READ EXAMPLE
-var gpio = require('../rpi-gpio');
+var gpio = require('./node_modules/rpi-gpio');
 
 gpio.setup(7, gpio.DIR_IN, readInput);
 
