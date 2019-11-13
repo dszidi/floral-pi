@@ -20,7 +20,7 @@ var gpio = require('./node_modules/rpi-gpio');
 let pins = [7, 14];
 pins.forEach((pin) => {
   gpio.setup(pin, gpio.DIR_IN, readInput);
-}
+});
 
 //function readInput(err) {
 pins.forEach((err) => {
