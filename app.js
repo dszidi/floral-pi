@@ -16,15 +16,19 @@ server.listen(port, hostname, () => {
 // GPIO READ EXAMPLE
 var gpio = require('./node_modules/rpi-gpio');
 
-gpio.setup(7, gpio.DIR_IN, readInput);
+// Setup PINS
+let pins = [7, 14];
+pins.forEach((pin) => {
+  gpio.setup(pin, gpio.DIR_IN, readInput);
 
-function readInput(err) {
-    if (err) throw err;
-    gpio.read(7, function(err, value) {
-        if (err) throw err;
-        console.log('The value is ' + value);
-    });
+  function readInput(err) {
+      if (err) throw err;
+      gpio.read(pin, function(err, value) {
+          if (err) throw err;
+          console.log('PIN ' + pin + ': ' + value);
+      });
+  }
+
+
 }
-
-
 
