@@ -1,2 +1,2 @@
-# Contributor Covenant Code of Conduct
+# Code of Conduct
 Don't be a jerk
