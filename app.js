@@ -19,15 +19,16 @@ const Gpio = require('pigpio').Gpio;
 // The number of microseconds it takes sound to travel 1cm at 20 degrees celcius
 const MICROSECDONDS_PER_CM = 1e6/34321;
  
-const trigger = new Gpio(4, {mode: Gpio.OUTPUT});
-const echo = new Gpio(17, {mode: Gpio.INPUT, alert: true});
+// FIRST SENSOR
+const trigger1 = new Gpio(4, {mode: Gpio.OUTPUT});
+const echo1 = new Gpio(17, {mode: Gpio.INPUT, alert: true});
  
-trigger.digitalWrite(0); // Make sure trigger is low
+trigger1.digitalWrite(0); // Make sure trigger is low
  
-const watchSensor = () => {
+const watchSensor1 = () => {
   let startTick;
  
-  echo.on('alert', (level, tick) => {
+  echo1.on('alert', (level, tick) => {
     if (level == 1) {
       startTick = tick;
     } else {
@@ -38,10 +39,10 @@ const watchSensor = () => {
   });
 };
  
-watchSensor();
+watchSensor1();
  
 // Trigger a distance measurement once per second
 setInterval(() => {
-  trigger.trigger(10, 1); // Set trigger high for 10 microseconds
+  trigger1.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 100);
 
