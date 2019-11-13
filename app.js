@@ -24,7 +24,7 @@ var gpio = require('./node_modules/rpi-gpio');
 });*/
 
 // PIN 7
-gpio.setup(pin, gpio.DIR_IN, readInput7);
+gpio.setup(7, gpio.DIR_IN, readInput7);
 function readInput7(err) {
     if (err) throw err;
     gpio.read(7, function(err, value) {
@@ -34,7 +34,7 @@ function readInput7(err) {
 }
 
 // PIN 14
-gpio.setup(pin, gpio.DIR_IN, readInput14);
+gpio.setup(14, gpio.DIR_IN, readInput14);
 function readInput14(err) {
     if (err) throw err;
     gpio.read(14, function(err, value) {
