@@ -17,40 +17,30 @@ server.listen(port, hostname, () => {
 var gpio = require('./node_modules/rpi-gpio');
 
 // Setup PINS
-let pins = [7, 14];
-let callBacks = {};
+//let pins = [7, 14];
 
-pins.forEach((pin) => {
-  
-  const readInput = (err) => {
-      if (err) throw err;
-      gpio.read(pin, function(err, value) {
-          if (err) throw err;
-          console.log('The value is ' + value);
-      });
-  }
-
-  callBacks[pin] = readInput;
-  //gpio.setup(pin, gpio.DIR_IN, readInput);
-  gpio.setup(pin, gpio.DIR_IN, callBacks[pin]);
-});
-
-
-/*pins.forEach((err) => {
-    //if (err) throw err;
-    gpio.read(pin, function(err, value) {
-        if (err) throw err;
-        console.log('PIN ' + pin + ': ' + value);
-    });
+/*pins.forEach((pin) => {
+  gpio.setup(pin, gpio.DIR_IN, readInput7);
 });*/
 
-// EXAMPLE CALLBACK
-/*function readInput(err) {
+// PIN 7
+gpio.setup(pin, gpio.DIR_IN, readInput7);
+function readInput7(err) {
     if (err) throw err;
     gpio.read(7, function(err, value) {
         if (err) throw err;
-        console.log('The value is ' + value);
+        console.log('PIN 7: ' + value);
     });
-}*/
+}
+
+// PIN 14
+gpio.setup(pin, gpio.DIR_IN, readInput14);
+function readInput14(err) {
+    if (err) throw err;
+    gpio.read(14, function(err, value) {
+        if (err) throw err;
+        console.log('PIN 14: ' + value);
+    });
+}
 
 
