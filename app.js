@@ -18,18 +18,39 @@ var gpio = require('./node_modules/rpi-gpio');
 
 // Setup PINS
 let pins = [7, 14];
+let callBacks = {};
+
 pins.forEach((pin) => {
-  gpio.setup(pin, gpio.DIR_IN, readInput);
+  
+  const readInput = (err) => {
+      if (err) throw err;
+      gpio.read(pin, function(err, value) {
+          if (err) throw err;
+          console.log('The value is ' + value);
+      });
+  }
+
+  callBacks[pin] = readInput;
+  //gpio.setup(pin, gpio.DIR_IN, readInput);
+  gpio.setup(pin, gpio.DIR_IN, callBacks[pin]);
 });
 
-//function readInput(err) {
-pins.forEach((err) => {
+
+/*pins.forEach((err) => {
     //if (err) throw err;
     gpio.read(pin, function(err, value) {
         if (err) throw err;
         console.log('PIN ' + pin + ': ' + value);
     });
-});
+});*/
 
+// EXAMPLE CALLBACK
+/*function readInput(err) {
+    if (err) throw err;
+    gpio.read(7, function(err, value) {
+        if (err) throw err;
+        console.log('The value is ' + value);
+    });
+}*/
 
 
