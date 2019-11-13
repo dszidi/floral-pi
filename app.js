@@ -16,30 +16,22 @@ server.listen(port, hostname, () => {
 // GPIO READ EXAMPLE
 var gpio = require('./node_modules/rpi-gpio');
 
-// Setup PINS
-//let pins = [7, 14];
 
-/*pins.forEach((pin) => {
-  gpio.setup(pin, gpio.DIR_IN, readInput7);
+// Use rpi pin number scheme
+gpio.setMode(gpio.MODE_BCM);
+
+// Listen
+/*gpio.on('change', function(channel, value) {
+	console.log('Channel ' + channel + ' value is now ' + value);
 });*/
 
-// PIN 7
-gpio.setup(7, gpio.DIR_IN, readInput7);
-function readInput7(err) {
+// PIN 4
+gpio.setup(4, gpio.DIR_IN, readInput4);
+function readInput4(err) {
     if (err) throw err;
-    gpio.read(7, function(err, value) {
+    gpio.read(4, function(err, value) {
         if (err) throw err;
-        console.log('PIN 7: ' + value);
-    });
-}
-
-// PIN 14
-gpio.setup(14, gpio.DIR_IN, readInput14);
-function readInput14(err) {
-    if (err) throw err;
-    gpio.read(14, function(err, value) {
-        if (err) throw err;
-        console.log('PIN 14: ' + value);
+        console.log('PIN 4: ' + value);
     });
 }
 
