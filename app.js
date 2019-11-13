@@ -13,6 +13,16 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
+const { Client } = require('node-osc');
+ 
+const OSC = new Client('127.0.0.1', 3333);
+
+function sendOSC(pin, value){
+  OSC.send('/oscAddress', 200, () => {
+    OSC.close();
+  });
+}
+
 // pigpio example
 const Gpio = require('pigpio').Gpio;
  
@@ -36,6 +46,7 @@ const watchSensor1 = () => {
       const diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
       const value = diff / 2 / MICROSECDONDS_PER_CM;
       console.log(value.toFixed(2));
+      sendOSC(1, value);
     }
   });
 };
