@@ -26,7 +26,7 @@ If this is freshly cloned from github then run...
 $ npm install
 
 To run the application...
-$ node app.js
+$ sudo node app.js
 
 
 

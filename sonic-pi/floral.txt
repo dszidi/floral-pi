@@ -1,11 +1,22 @@
 # Welcome to Sonic Pi v3.0.1
 
+length = 0.1
+
 live_loop :listen do
   use_real_time
   sensor1 = sync "/osc/sensors/1"
+  sensor2 = sync "/osc/sensors/2"
+  sensor3 = sync "/osc/sensors/3"
+  a = 0.6
   use_synth :sine
-  #sample :bass_thick_c
-  length = 0.5
-  myNote = play sensor1[1], amp: 0.85, attack: 0.35, sustain: length * 0.25
-  sleep length * 1.5
+  #sample :bd_808
+  note1 = play sensor1[1], amp: sensor1[0], attack: 0.35, release: length * 0.05
+  note2 = play sensor2[1], amp: sensor2[0], attack: 0.35, release: length * 0.05
+  note3 = play sensor3[1], amp: sensor3[0], attack: 0.35, release: length * 0.05
+  sleep length * 1.25
 end
+
+#live_loop :listen do
+#  sample :bd_808
+#  sleep length * 1.25
+#end
