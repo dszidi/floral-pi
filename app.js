@@ -14,13 +14,38 @@ server.listen(port, hostname, () => {
 });
 
 // OSC (OPEN SOUND CONTROL)
-const { Client } = require('./node_modules/node-osc/lib');
+const { Client, Message } = require('./node_modules/node-osc/lib');
  
-const client = new Client('127.0.0.1', 3333);
+const client = new Client('127.0.0.1', 4559);
 
 function sendOSC(sensor, value){
-  client.send('/oscAddress', 200, () => {
+  const scale = [60,62,64,65,67,68,70,71,73,75,76,78,80,82,83]
+  const threshold = 85;
+
+  let message = new Message('/sensors/' + sensor.toString());
+  let amp = value < threshold ? value * 0.036 : 1;
+  let duration = value < threshold ? value / 100 : 1;
+
+  const totalNotes = 13; // Highest note
+  const startingNote = 60; // Lowest note
+
+  let pitch = parseInt(value / 10) * 2;
+  if(pitch > totalNotes){
+    pitch = totalNotes;
+  } else if(pitch < 1){
+    pitch = 1;
+  }
+
+  message.append(parseFloat(amp.toFixed(2)));
+  message.append(value > 60 ? 0 : scale[scale.length - pitch]);
+
+  client.send(message, (err) => {
     //client.close();
+    if(err){
+      console.error(new Error(err));
+    }
+
+    console.log('Value: ' + value + ', PITCH: ' + pitch + ' ScaleTone: ' + scale[pitch]);    
   });
 }
 
@@ -46,8 +71,8 @@ const watchSensor1 = () => {
       const endTick = tick;
       const diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
       const value = diff / 2 / MICROSECDONDS_PER_CM;
-      console.log(value.toFixed(2));
-      sendOSC(1, value);
+      //console.log(value.toFixed(2));
+      sendOSC(1, value.toFixed(2));
     }
   });
 };

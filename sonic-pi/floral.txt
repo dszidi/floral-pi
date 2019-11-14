@@ -1,0 +1,11 @@
+# Welcome to Sonic Pi v3.0.1
+
+live_loop :listen do
+  use_real_time
+  sensor1 = sync "/osc/sensors/1"
+  use_synth :sine
+  #sample :bass_thick_c
+  length = 0.5
+  myNote = play sensor1[1], amp: 0.85, attack: 0.35, sustain: length * 0.25
+  sleep length * 1.5
+end
